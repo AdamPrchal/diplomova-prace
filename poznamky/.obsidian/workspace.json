@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "c785c072a8c24bb4",
+            "id": "e4a2567096e8dc01",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Úvod.md",
+                "file": "Záměr.md",
                 "mode": "source",
                 "source": false
               }
@@ -22,15 +22,19 @@
         ]
       },
       {
-        "id": "1ad9353232f60b26",
+        "id": "0abbf78ca167aef5",
         "type": "tabs",
         "children": [
           {
-            "id": "f51a99c4c86d168d",
+            "id": "c785c072a8c24bb4",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "materiály/Info ohledně tématu.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -99,6 +103,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Záměr.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,6 +120,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Záměr.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -136,7 +142,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Záměr.md"
+              }
             }
           }
         ]
@@ -156,8 +164,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "f51a99c4c86d168d",
+  "active": "e4a2567096e8dc01",
   "lastOpenFiles": [
-    "Úvod.md"
+    "materiály/Info ohledně tématu.md",
+    "Záměr.md",
+    "materiály/Tajné info ohledné tématu.md",
+    "Úvod.md",
+    "materiály"
   ]
 }
