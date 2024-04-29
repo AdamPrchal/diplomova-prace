@@ -2,7 +2,7 @@
 Detekce duplicit v geoprostorových datech společnosti CleverMaps 
 
 **Předpokládaný cíl práce:**
-Cílem této práce je prozkoumat a otestovat různé metody detekce duplicit v geoprostorových datech, včetně metod založených na strojovém učení, a na základě analýzy výsledků doporučit nejvhodnější metody pro konkrétní sady geoprostorových dat poskytnutých společností CleverMaps.
+Cílem této práce je prozkoumat a otestovat různé metody detekce duplicit na geoprostorových datech, včetně metod založených na strojovém učení. Na základě analýzy výsledků testů doporučit nejvhodnější metody pro konkrétní sady geoprostorových dat poskytnutých společností CleverMaps.
 Výsledná doporučení by měla společnosti CleverMaps pomoci v rámci zvyšování automatizace a zkvalitnění procesů kontrol kvality dat.
 
 **Návrh metodiky řešení včetně identifikace zkoumaného vzorku:**
@@ -12,11 +12,11 @@ V rámci analýzy a přípravy dat bude proveden rozbor datových sad poskytnut�
 
 Na základě zjištění z literární rešerše a rozboru datových sad budou vybrány metody pro testování. Takto vybrané metody se následně naimplementují za použití příslušných algoritmů a nástrojů.
 
-Takto naimplementované metody budou testovány na poskytnutých datových sadách. V této části tak budou zajištěny podklady pro analýzu výsledků a tvorbu doporučení. Mezi sbírané metriky úspěšnosti metod bude spadat například přesnost, úplnost a F-míra.
+Takto naimplementované metody budou testovány na poskytnutých datových sadách. V této části tak budou zajištěny relevantní podklady pro analýzu výsledků a tvorbu doporučení.
 
-Po implementaci a testování metod se provede analýza výsledků testů a vyhodnotí se, které metody jsou pro detekci duplicit v poskytnutých datových sadách nejúčinnější. 
+Po implementaci a testování metod se provede analýza výsledků testů a vyhodnotí se, které metody jsou pro detekci duplicit v poskytnutých datových sadách nejúčinnější na základě relevantních metrik.
 
-V závěrečné části práce budou podrobně shrnuty všechny metody testované během výzkumu, s důrazem na jejich efektivitu a aplikovatelnost pro konkrétní datové sady společnosti CleverMaps. Budou diskutovány výhody a možná omezení každé z metod. Na základě analýzy a výsledků testů budou formulována specifická doporučení pro společnost.
+V závěrečné části práce budou shrnuty všechny testované metody, s důrazem na jejich efektivitu a aplikovatelnost pro konkrétní datové sady společnosti CleverMaps. Budou diskutovány výhody a možná omezení každé z metod. Na základě analýzy a výsledků testů budou formulována specifická doporučení pro společnost.
 
 **Návrh literárních pramenů pro vypracování práce**
 TODO
@@ -47,20 +47,12 @@ TODO
 
 **Vymezení řešeného problému v kontextu současného stavu poznání řešené problematiky s využitím odborné literatury, příp. (je-li to relevantní) formulace výzkumných otázek a hypotéz:**
 
-V rámci získávání informací o prostředí a jeho hluboké analýze, kterému se nadává Location Intelligence se sbírají data. Mezi ty tada patří například pozice podniků v konkrétních městech, informace o velikosti parků či jiných veřejných prostorách a spoustu dalších dat, které reflektují místa na světě. Tyhle data se sbírají z několika zdrojů (OpenStreet Maps, Google Maps, Mapy.cz od Seznamu), aby mohla být analýza prostředí co nejpřesnější a vypovídající. Taková data se označují jako geodata nebo také geoprostorová data. 
+Společnost CleverMaps využívá svou platformu Location Intelligence k poskytování komplexních geoprostorových analýz, což je klíčové pro efektivní rozhodování v různých oblastech podnikání. Jako součást jejich platformy CleverMaps nabízí službu zvanou Data Marketplace, která umožňuje uživatelům přistupovat a integrovat různorodé datové sady. Tento marketplace poskytuje širokou škálu dat, včetně demografických informací, což klientům umožňuje získat přesné a cílené informace pro jejich specifické potřeby. (Clever Maps, 2024)
 
-Vzhledem k tomu, že je získáváno velké množství geodat z více zdrojů, dochází tak k tomu, že některé geodata jsou duplicitní tzn. že některé konkrétní entity, jako například identické restaurace, obchody, či jiné body zájmů, budou ve výsledné datové sadě více krát.
-Tyto duplicity nemusí být snadno rozpoznatelné pomocí porovnání atributů těchto dat, jelikož se při zadávání konkrétního bodu zájmu mohou některé údaje napsat odlišně. Například na Mapy.cz může být název papírnictví zanesené jako "Papírnictví U Nováků", avšak například na Google Maps může mít identické papírnictví v názvu pouze "U Nováků" a informace o tom, že se jedná o papírnictví může být uvedena pouze jako kategorie podniku.
+Vzhledem k tomu, že při práci (nejen) s geodaty se často zapracovávají informace získané z různých zdrojů, nastává to, že se totožné údaje ve shromážděných datech mohou objevovat vícekrát. Tento jev se označuje jako duplicita. Tyto duplicity mohou nastat z mnoha důvodů a mohou mít různé podoby. Příkladem může být situace, kdy jsou stejná místa nebo objekty zaznamenány pod různými názvy v různých databázích. Například, jedna databáze může obsahovat bod zájmu (POI) jako "Hlavní městský park", zatímco druhá jej může uvádět jako "Park v centru města". Obě tato označení se mohou vztahovat ke stejnému místu, ale různé názvy komplikují jejich rozpoznání jako duplicit. Další běžnou příčinou je chybné zadání dat, kde se například dva různé záznamy pro stejnou ulici mohou lišit pouze malými typografickými chybami nebo odlišnými způsoby zkrácení názvů. (Felix Naumann 2010)
 
-Máme nějaké typy duplicit TODO.
-Typ 
-Typ 
-Typ
+Pro udržení integrity a přesnosti geodat je detekce a řešení duplicit nezbytná. K identifikaci duplicit mohou být využity různé metody, od jednoduchých porovnání řetězců až po sofistikovanější techniky, jako jsou algoritmy strojového učení a neuronové sítě. Tyto pokročilé metody umožňují rozpoznávat a porovnávat podobnosti na základě kontextu a pravděpodobnosti, což vede k efektivnějšímu a přesnějšímu detekování duplicit. (Peter Christen 2012)
 
-Běžné metody pro rozpoznání duplicit
+V oblasti detekce duplicit existuje řada služeb, které nabízejí pokročilé řešení tohoto problému. Tyto služby jsou často založené na cloud technologiích a strojovém učen. Jsou schopné efektivně identifikovat a eliminovat duplicity v rozsáhlých datových sadách. Mezi poskytovatele těchto služeb patří například služby Data Ladder, Tilores a Melissa, které nabízejí různé nástroje pro automatickou detekci a správu duplicitních záznamů.
 
-Využití strojové učení pro detekci
-
-Metriky pro měření úspěšnosti/spolehlivosti metod
-
-Existující nástroje implementující metody nebo použitelné pro implementaci těcho 
+Ačkoliv tyto služby přinášejí významné výhody v podobě úspory času a zlepšení kvality dat, mohou být spojeny s vysokými náklady, zejména v případech, kdy je zapotřebí zpracovat velké objemy dat. Finanční zátěž z těchto služeb může být pro některé společnosti značná, což je může motivovat k implementaci vlastního řešení.
