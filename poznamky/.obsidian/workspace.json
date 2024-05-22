@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Záměr.md",
+                "file": "materiály/Tajné info ohledné tématu.md",
                 "mode": "source",
                 "source": false
               }
@@ -86,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Záměr.md",
+                "file": "materiály/Tajné info ohledné tématu.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Záměr.md",
+                "file": "materiály/Tajné info ohledné tématu.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Záměr.md"
+                "file": "materiály/Tajné info ohledné tématu.md"
               }
             }
           }
@@ -149,8 +149,8 @@
   },
   "active": "e4a2567096e8dc01",
   "lastOpenFiles": [
-    "materiály/Info ohledně tématu.md",
     "Záměr.md",
+    "materiály/Info ohledně tématu.md",
     "materiály/Tajné info ohledné tématu.md",
     "Úvod.md",
     "materiály"
