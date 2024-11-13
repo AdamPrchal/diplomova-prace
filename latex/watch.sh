@@ -1,10 +1,10 @@
 latexmk -xelatex main.tex
-fswatch -e ".*" -i ".*/[^.]*\\.tex$" -i ".*/zdroje\\.csv$" -0 . | while read -d "" event
+fswatch -e ".*" -i ".*/[^.]*\\.tex$" -i ".*/My Library\\.csv$" -0 . | while read -d "" event
 do
     if [[ "$event" =~ \.tex$ ]]; then
-        latexmk -xelatex main.tex
+        latexmk -quiet -xelatex main.tex
     elif [[ "$event" == *zdroje.csv ]]; then
-        python3 csv_to_lit.py
-        latexmk -xelatex main.tex
+        python3 ./zotero_bridge/main.py
+        latexmk -quiet -xelatex main.tex
     fi
 done
