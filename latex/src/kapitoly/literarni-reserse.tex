@@ -1,14 +1,34 @@
 \kapitola{Literární rešerše}
 \sekce {Problematika detekce duplicit v~datech}
 \todo{Základní pojmy, metriky, typy algoritmů, problémy s~kvalitou dataaasdasdaa}
-Data v rámci různých ekosystémů jsou ukládáná v různých formách. Liší se ve struktuře, pojmenování atributů a hlavně ve způsobu využívání unikátních identifikátorů datových entit. Ve chvíli kdy se pokoušíme data z takových různých zdrojů agregovat například do centrální databáze, vzniká problém. Tím je rozhodnout, které záznamy (entity) jsou unikátní, a které jsou například duplikované z toho důvodu, že prostředí ze kterých jsou získána mají odlišnou strukturu a nelze snadno rozhodnout o tom, že je daná entita shodná s entitou z jiného zdroje na základě jejího identifikátoru.
+Data v rámci různých ekosystémů jsou ukládáná v různých formách. Liší se ve struktuře, pojmenování atributů a hlavně ve způsobu využívání unikátních identifikátorů datových entit. Ve chvíli kdy se pokoušíme data z takových různých zdrojů agregovat například do centrální databáze, vzniká problém. Tím je rozhodnout, které záznamy (entity) jsou unikátní, a které jsou například duplikované z toho důvodu, že prostředí ze kterých jsou získána mají odlišnou strukturu a nelze snadno rozhodnout o tom, zda je daná entita shodná s entitou z jiného zdroje na základě jejího identifikátoru.
 
-V literatuře se objevuje několik termínů, které označují procesy pro nalezení duplicit a vypořádání se s nimi. Data matching označuje proces nalezení duplicitních entit, které odkazují na stejnou entitu, Data merging označuje proces spojení dvou a více záznamů do jedné entity. Dále se objevuje pojem Entity resolution, který označuje proces nalazení shodných entit (data matching) a následné spojení v jednu entitu (data merging). Krom toho existuje i varianta Entity linkage, která entity propojí, místo toho aby je jako entity resolution spojila do jedné entity.
-Tato práce se bude převážně věnovat tomu, co se v literatuře označuje jako data matching, tedy procesu hledání duplicit.
+yolo molo trolo
+
+V literatuře se objevuje několik termínů, které označují procesy pro nalezení duplicit a vypořádání se s nimi. Přestože se některé z nich používají zaměnitelně, některé zdroje popisují procesy rozdílně. Zde je stručný přehled.
+
+\begin{itemize}
+    \item \textit{Data matching} je obecný pojem označující různé techniky pro porovnávání a rozpoznávání duplicit mezi různými zdroji dat.\cite{christen_data_2012}
+    \item \textit{Entity resolution} zahrnuje proces nalezení shodných entit s důrazem na spojení těchto entit do jedné entity. \cite{quantexa_what_2024}
+    \item \textit{Record linkage} zahrnuje proces nalezení a propojení entit. Narozdíl od \textit{entity resolution} je však nespojuje do jedné entity, ale vytváří se např. propojovací tabulky. \cite{stepanenko_what_2024}
+\end{itemize}
+
+Nicméně, tyto rozdíly se objevují pouze v některých zdrojích a to svědčí o tom, že většina těchto a další podobných termínů vznikla v různých oborech a v rámci řešení různých problémů a proto není příliš důležité věnovat se označení procesu, ale spíš procesu jako takovému a krokům, které vedou k nalezení duplicit.\cite{christen_data_2012}
+
+V této práci bude používán termín  \textit{data matching}, převážně z toho důvodu, že podle Google Trends \cite{google_trends_google_2024}, je celosvětově za posledních 5 let termín \textit{data matching} relativně vyhledávanější než ostatní alternativní termíny. Viz. obr. \ref{fig:google-trends}.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[scale=0.6]{images/google-trends.pdf}
+    \caption{Zájem o termíny "data matching", "entity resolution" a "record linkage".\newline
+             \textit{Zdroj}: \cite{google_trends_google_2024}}
+    \label{fig:google-trends}
+\end{figure}
+\pagebreak
 
 Příkladem kdy k takovému problému nedojde může být případ z prostředí České republiky a předpokládejme, že jde o data čistě občanů České republiky, kdy máme první datový zdroj s pacienty ordinace a druhý zdroj je databáze klientů zdravotní pojišťovny. V tomto případě lze snadno rozpoznat dané entity (osoby) na základě rodného čísla, které se u záznamů v těcho zdrojích pravděpodobně nachází. V tomto případě můžeme následně data zagregovat a dále s nimi pracovat.
 
-\sekce {Přístupy k~rozpoznání duplicitních objektů}
+\sekce {Přístupy k~rozpoznání duplicitních entit}
 Detekce duplicit bez využití strojového učení zahrnuje například algoritmus pro výběr párů Sorted-Neighborhood-Method (SNM). Je možné provést porovnání všech možných kombinací záznamů, ale SNM efektivně snižuje počet nutných porovnání tím, že seřadí data a porovnává pouze sousední záznamy. Pro následné měření podobnosti mezi záznamy se často používají metody jako Jaro-Winkler a Levenshtein, které posuzují, do jaké míry se záznamy podobají. Na základě takové podobnosti lze určit, zda jsou porovnané záznamy duplicity. Tyto metody jsou obzvláště užitečné pro identifikaci menších rozdílů a překlepů ve zpracovávaných datech. \cite{draisbach_choosing_2013}
 
 Metody strojového učení nabízí pokročilejší možnosti, které umožňují identifikovat složitější vzory, které by metody bez využití strojového učení nemuseli odhalit. Například, hluboké neuronové sítě mohou být trénovány na rozsáhlých datových sadách a díky tomu mohou nalézt v datech složité vzory. Takto natrénované neuronové sítě mohou označit za duplicitní záznamy, které na první pohled jako duplicity nevypadají. \cite{pasek_mqdd_2022}
