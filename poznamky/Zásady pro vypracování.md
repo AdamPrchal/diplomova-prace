@@ -1,0 +1,5 @@
+- Seznamte se s problematikou detekce duplicit v datech. Nastudujte možné přístupy k rozpoznávání duplicitních objektů. Zaměřte se především na oblast geoprostorových dat, prozkoumejte jejich specifika.
+- Prozkoumejte existující nástroje a popište jejich výhody a nevýhody. Inspirujte se jejich funkcionalitou.
+- Roztřiďte geoprostorová data podle jejich specifičnosti do skupin a pro jednotlivé skupiny identifikujte nejvhodnější metody pro detekci duplicit.
+- Své poznatky ověřte na otevřených datech i na datech poskytnutých od společnosti zabývající se problematikou geoprostorových dat.
+- Zhodnoťte dosažené výsledky.
