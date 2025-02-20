@@ -80,59 +80,83 @@ Celkově lze říct, že neřešené duplicitní záznamy mají rozsáhlý negat
 % Příkladem kdy k takovému problému nedojde může být případ z prostředí České republiky a předpokládejme, že jde o data čistě občanů České republiky, kdy máme první datový zdroj s pacienty ordinace a druhý zdroj je databáze klientů zdravotní pojišťovny. V tomto případě lze snadno rozpoznat dané entity (osoby) na základě rodného čísla, které se u záznamů v těcho zdrojích pravděpodobně nachází. V tomto případě můžeme následně data zagregovat a dále s nimi pracovat.
 
 \sekce {Přístupy k~rozpoznání duplicitních entit}
-Detekce duplicit bez využití strojového učení zahrnuje například algoritmus pro výběr párů Sorted-Neighborhood-Method (SNM). Je možné provést porovnání všech možných kombinací záznamů, ale SNM efektivně snižuje počet nutných porovnání tím, že seřadí data a porovnává pouze sousední záznamy. Pro následné měření podobnosti mezi záznamy se často používají metody jako Jaro-Winkler a Levenshtein, které posuzují, do jaké míry se záznamy podobají. Na základě takové podobnosti lze určit, zda jsou porovnané záznamy duplicity. Tyto metody jsou obzvláště užitečné pro identifikaci menších rozdílů a překlepů ve zpracovávaných datech. \cite{draisbach_choosing_2013}
+efektivní řešení problému duplicitních záznamů vyžaduje přístup, který kombinuje několik vrstev zpracování dat. Na počátku je nezbytná důkladná standardizace a čištění vstupních dat, čímž se eliminuje šum a zajišťuje se konzistence formátů. Následně se využívají metody pro porovnávání textových řetězců, pravděpodobnostní modely, optimalizace výpočtů a moderní přístupy založené na strojovém učení. Tato komplexní strategie zvyšuje přesnost a robustnost celého systému a umožňuje spolehlivé sjednocení duplicitních záznamů, což je klíčové pro následné analytické a rozhodovací procesy.
 
-Metody strojového učení nabízí pokročilejší možnosti, které umožňují identifikovat složitější vzory, které by metody bez využití strojového učení nemuseli odhalit. Například, hluboké neuronové sítě mohou být trénovány na rozsáhlých datových sadách a díky tomu mohou nalézt v~datech složité vzory. Takto natrénované neuronové sítě mohou označit za duplicitní záznamy, které na první pohled jako duplicity nevypadají. \cite{pasek_mqdd_2022}
+\podsekce {Heuristické metody a textové porovnávání}
+Heuristické metody vycházejí z předem definovaných pravidel a pracují s textovými řetězci, přičemž jejich hlavní výhodou je relativní jednoduchost implementace a nízká výpočetní náročnost. Tyto metody jsou vhodné zejména pro odhalování drobných chyb, překlepů či variací v zápisu.
+
+Mezi základní techniky patří například \textbf{Jaro-Winklerova podobnost}, která kromě celkové shody hodnotí i umístění shodných znaků a zvlášť zvýhodňuje začátek řetězce. Tato vlastnost se osvědčuje především při porovnávání osobních jmen, kdy může dojít k chybám v úvodních znacích. Dále se využívá \textbf{Levenshteinova vzdálenost}, jež měří minimální počet operací (vložením, smazáním či nahrazením znaku) nutných k transformaci jednoho řetězce do druhého, což umožňuje detekovat i drobné překlepy. Kromě těchto metod se uplatňují techniky normalizace textu (\textbf{Simple Name Matching}), kdy dochází k odstranění diakritiky a sjednocení velikosti písmen. Doplňkovým přístupem jsou fonetické algoritmy, jako je \textbf{Metaphone} nebo \textbf{Match Rating Approach}, které převádějí slova do fonetických kódů, čímž umožňují identifikovat shodné výslovnosti i při odlišné grafické podobě.
+
+\podsekce {Probabilistické přístupy}
+Probabilistické metody se zaměřují na výpočet pravděpodobnosti, že dva záznamy odpovídají téže entitě, a to na základě analýzy jednotlivých atributů. Každý atribut je ohodnocen pravděpodobností shody, přičemž klíčovými pojmy jsou \textit{m-hodnota} (pravděpodobnost shody v případě, že záznamy patří ke stejné entitě) a \textit{u-hodnota} (pravděpodobnost shody v opačném případě). Pro kombinaci těchto hodnot se využívá \textbf{Bayesova věta}, která umožňuje vážit jednotlivé atributy podle jejich diskriminační síly.
+
+V praxi se často aplikuje \textbf{Fellegi-Sunterův model}, který na základě váženého součtu srovnávacích skóre a stanovené prahové hodnoty usnadňuje rozhodování o shodě záznamů. Pro optimalizaci parametrů modelu se dále využívá algoritmus
+\textbf{Expectation-Maximization}, jenž iterativně upravuje odhady a tím zvyšuje celkovou přesnost systému.
+
+\podsekce{Techniky optimalizace porovnání}
+Při zpracování rozsáhlých datových souborů je počet možných kombinací záznamů enormní, což výrazně zvyšuje výpočetní náročnost. Aby bylo možné efektivně porovnávat pouze relevantní páry, využívá se metoda \textbf{record blocking}. Tato technika seskupuje záznamy do bloků na základě klíčových atributů (například počáteční písmeno jména nebo region), čímž se výrazně redukuje počet nutných porovnání.
+
+Po předběžném porovnání se identifikované shodné záznamy seskupují do klastrů. V rámci těchto \textit{klastrů} se následně stanovuje tzv. kanonická hodnota, tedy reprezentativní záznam, který bude sloužit jako finální sjednocená verze dané entity. Tento krok je klíčový pro dosažení konečné konzistence a integrity dat.
+
+\podsekce{Metody založené na strojovém učení a hlubokých neuronových sítích}
+S rozvojem datové analytiky se čím dál více prosazují metody založené na strojovém učení, které jsou schopny se adaptivně učit z tréninkových dat. V rámci supervizovaného učení se modely trénují na označených datech, což umožňuje detekovat složité vzory a kombinovat informace z více atributů současně.
+
+Dalším krokem ve vývoji jsou hluboké neuronové sítě, které převádějí textová data do vektorových reprezentací neboli embeddingů. Tyto reprezentace zachycují sémantické vztahy mezi slovy, což umožňuje identifikovat jemné rozdíly a podobnosti, jež tradiční metody často přehlédnou. Hybridní modely, kombinující principy strojového učení s pravděpodobnostními přístupy, pak poskytují nejen klasifikaci shod, ale také odhadují míru důvěryhodnosti výsledků pomocí vážených skóre.
+
+Komplexní systém rozpoznávání duplicitních záznamů se skládá z několika vrstev, počínaje důkladnou standardizací a čištěním dat, pokračuje aplikací heuristických metod a probabilistických modelů, dále optimalizací porovnávání pomocí record blockingu a clusteringu a končí využitím adaptivních metod strojového učení a hlubokých neuronových sítí. Tato strategie umožňuje efektivní identifikaci a sjednocení duplicitních záznamů v rozsáhlých a heterogenních datových souborech a tím výrazně zvyšuje kvalitu dat pro následné analytické a rozhodovací procesy.
+% Detekce duplicit bez využití strojového učení zahrnuje například algoritmus pro výběr párů Sorted-Neighborhood-Method (SNM). Je možné provést porovnání všech možných kombinací záznamů, ale SNM efektivně snižuje počet nutných porovnání tím, že seřadí data a porovnává pouze sousední záznamy. Pro následné měření podobnosti mezi záznamy se často používají metody jako Jaro-Winkler a Levenshtein, které posuzují, do jaké míry se záznamy podobají. Na základě takové podobnosti lze určit, zda jsou porovnané záznamy duplicity. Tyto metody jsou obzvláště užitečné pro identifikaci menších rozdílů a překlepů ve zpracovávaných datech. \cite{draisbach_choosing_2013}
+
+% Metody strojového učení nabízí pokročilejší možnosti, které umožňují identifikovat složitější vzory, které by metody bez využití strojového učení nemuseli odhalit. Například, hluboké neuronové sítě mohou být trénovány na rozsáhlých datových sadách a díky tomu mohou nalézt v~datech složité vzory. Takto natrénované neuronové sítě mohou označit za duplicitní záznamy, které na první pohled jako duplicity nevypadají. \cite{pasek_mqdd_2022}
 % \todo{Algoritmy a techniky}
 
-\sekce {Specifika geoprostorových dat}
+% \sekce {Specifika geoprostorových dat}
 % \todo {Typy geodat(vector, body, linie a rastry), formáty uložení, souřadnicové systémy}
-Jde o~data, která představují místa, oblasti nebo třeba předměty ze skutečného světa, a udávají jejich přesnou lokalitu pomocí souřadnic na Zemi. Můžeme mít například geodata představující státní hranice evropských zemí, geodata představující všechny lampy veřejného osvětlení v~Brně.
+% Jde o~data, která představují místa, oblasti nebo třeba předměty ze skutečného světa, a udávají jejich přesnou lokalitu pomocí souřadnic na Zemi. Můžeme mít například geodata představující státní hranice evropských zemí, geodata představující všechny lampy veřejného osvětlení v~Brně.
 % \todo{Obrázek s~GIS mapama}
 
-\podsekce{Souřadnicové systémy}
+% \podsekce{Souřadnicové systémy}
 
-Geodata používají souřadnice pro popsání pozice konkrétního objektu. Těchto souřadnic však existuje hned několik a při práci s~geodaty je potřeba vědět, které to jsou. Existují různé typy souřadnicových systémů, které se používají podle konkrétních požadavků. Mezi nejpoužívanější v~kontextu České republiky patří:
+% Geodata používají souřadnice pro popsání pozice konkrétního objektu. Těchto souřadnic však existuje hned několik a při práci s~geodaty je potřeba vědět, které to jsou. Existují různé typy souřadnicových systémů, které se používají podle konkrétních požadavků. Mezi nejpoužívanější v~kontextu České republiky patří:
 
-\podsekce{Globální a celosvětové použití}
+% \podsekce{Globální a celosvětové použití}
 
-\podsekce{Geografický souřadnicový systém (GCS) - WGS 84}
+% \podsekce{Geografický souřadnicový systém (GCS) - WGS 84}
 
-Systém využívající úhlových souřadnic, konkrétně zeměpisné šířky a délky. Nadmořská výška se udává v~metrech nad povrchem referenčního elipsoidu.
-Je vhodný pro geodata představující entity na celosvětové úrovni. Díky tomu je využíván například i v~GPS technologii, kde je zapotřebí pracovat v~rámci celé Země.
-Není však příliš vhodná pro lokální úroveň (města, ulice), pokud je vyžadována vysoká přesnost. Je tomu tak protože při výpočtu vzdáleností nebo ploch z~úhlových souřadnic může docházet k~nepřesnostem.
+% Systém využívající úhlových souřadnic, konkrétně zeměpisné šířky a délky. Nadmořská výška se udává v~metrech nad povrchem referenčního elipsoidu.
+% Je vhodný pro geodata představující entity na celosvětové úrovni. Díky tomu je využíván například i v~GPS technologii, kde je zapotřebí pracovat v~rámci celé Země.
+% Není však příliš vhodná pro lokální úroveň (města, ulice), pokud je vyžadována vysoká přesnost. Je tomu tak protože při výpočtu vzdáleností nebo ploch z~úhlových souřadnic může docházet k~nepřesnostem.
 
-\podsekce{Regionální a národní použití}
+% \podsekce{Regionální a národní použití}
 
-\podsekce{Projekční souřadnicový systém (PCS) - S-JTSK (Systém Jednotné Trigonometrické Sítě Katastrální)}
+% \podsekce{Projekční souřadnicový systém (PCS) - S-JTSK (Systém Jednotné Trigonometrické Sítě Katastrální)}
 
-Tento konkrétní systém je navržen pro Českou republiku a umožňuje tak na jejím území mapovat s~vysokou přesností. Je proto používán jako jeden ze závazných souřadnicových systémů pro orgány České republiky.
-Souřadnice jsou vyjádřeny pomocí kartézského souřadnicového systému (X - sever, Y - východ) a jednotkou jsou metry. Pro nadmořskou výšku používá metry nad střední hladinou Jaderského moře.
+% Tento konkrétní systém je navržen pro Českou republiku a umožňuje tak na jejím území mapovat s~vysokou přesností. Je proto používán jako jeden ze závazných souřadnicových systémů pro orgány České republiky.
+% Souřadnice jsou vyjádřeny pomocí kartézského souřadnicového systému (X - sever, Y - východ) a jednotkou jsou metry. Pro nadmořskou výšku používá metry nad střední hladinou Jaderského moře.
 
-\podsekce{Evropský souřadnicový systém - ETRS89 (European Terrestrial Reference System 1989)}
+% \podsekce{Evropský souřadnicový systém - ETRS89 (European Terrestrial Reference System 1989)}
 
-Souřadnicový systém ETRS89 slouží jako standard pro evropské projekty a díky tomu i usnadňuje spolupráci vícero zemí na projektech s~mezihraničním rozsahem.
-Stejně jako S-JTSK používá kartézský souřadnicový systém v~jednotkách metru. Výška v~tomto systému je počítáná v~metrech od povrchu referenčního elipsoidu GRS80.
+% Souřadnicový systém ETRS89 slouží jako standard pro evropské projekty a díky tomu i usnadňuje spolupráci vícero zemí na projektech s~mezihraničním rozsahem.
+% Stejně jako S-JTSK používá kartézský souřadnicový systém v~jednotkách metru. Výška v~tomto systému je počítáná v~metrech od povrchu referenčního elipsoidu GRS80.
 
-Toto nejsou zdaleka všechny souřadnicové systémy. Každý z~nich slouží pro jiné potřeby a je důležité si uvědomit, jak se liší, a v~jakém kontextu se s~nimi lze setkat.
+% Toto nejsou zdaleka všechny souřadnicové systémy. Každý z~nich slouží pro jiné potřeby a je důležité si uvědomit, jak se liší, a v~jakém kontextu se s~nimi lze setkat.
 
-% \todo{Tvary geodat (points, lines, and polygons)}
+% % \todo{Tvary geodat (points, lines, and polygons)}
 
-\podsekce{K~čemu slouží}
+% \podsekce{K~čemu slouží}
 
-Geodata sama o~sobě ale popisují vždy specifický objekt. Aby se dali z~těchto dat získat nějaké znalosti, je potřeba je dále zpracovávat. K~tomu slouží například geografické informační systémy (GIS). Tyto systémy dokáží poskytnutá data analyzovat a vizualizovat a dále s~nimi pracovat dle potřeby. Mohou tak umožnit například přehledně vidět, v~jakém úseku silnice je v~daný čas nejvíce aut, a zároveň vidět, ze kterých navazujících silnic tam tyto auto přijíždí. Díky takové vizualizaci a analýze lze následně vycházet například při plánování dopravní infrastruktury.
+% Geodata sama o~sobě ale popisují vždy specifický objekt. Aby se dali z~těchto dat získat nějaké znalosti, je potřeba je dále zpracovávat. K~tomu slouží například geografické informační systémy (GIS). Tyto systémy dokáží poskytnutá data analyzovat a vizualizovat a dále s~nimi pracovat dle potřeby. Mohou tak umožnit například přehledně vidět, v~jakém úseku silnice je v~daný čas nejvíce aut, a zároveň vidět, ze kterých navazujících silnic tam tyto auto přijíždí. Díky takové vizualizaci a analýze lze následně vycházet například při plánování dopravní infrastruktury.
 
-Každý kdo otevře služby jako Google Maps, Seznam Mapy nebo Apple Maps se dívá na několika vrstvou vizualizaci geodat. Na první pohled se jedná o~běžnou mapu, avšak vizualizace v~těchto službách je běžně tvořena několika samostatnými vrstvami:
+% Každý kdo otevře služby jako Google Maps, Seznam Mapy nebo Apple Maps se dívá na několika vrstvou vizualizaci geodat. Na první pohled se jedná o~běžnou mapu, avšak vizualizace v~těchto službách je běžně tvořena několika samostatnými vrstvami:
 
-\begin{itemize}
-  \item vrstvy komunikace,
-  \item vrstvy staveb,
-  \item vrstvy řek,
-  \item vrstvy zeleně a dalších.
-\end{itemize}
+% \begin{itemize}
+%   \item vrstvy komunikace,
+%   \item vrstvy staveb,
+%   \item vrstvy řek,
+%   \item vrstvy zeleně a dalších.
+% \end{itemize}
 
-% \todo{Obrázek map z~aplikací}
-Každá taková vrstva je sada geodat, která popisuje daný typ předmětu/lokace s~přesnými souřadnicemi dalšími pomocnými atributy/vlastnostmi.
+% % \todo{Obrázek map z~aplikací}
+% Každá taková vrstva je sada geodat, která popisuje daný typ předmětu/lokace s~přesnými souřadnicemi dalšími pomocnými atributy/vlastnostmi.
 
-\sekce {Existující nástroje}
+% \sekce {Existující nástroje}
 % \todo{Popište dostupné software, jejich výhody a nevýhody}
