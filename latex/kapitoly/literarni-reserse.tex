@@ -10,6 +10,9 @@ Abychom mohli přesně popsat proces detekce duplicit, je nutné nejprve vyjasni
 
 \textbf{Záznam} představuje konkrétní reprezentaci entity v~databázi. Jedna entita tak může být v~různých databázích reprezentován více různými záznamy, například s~mírně odlišnými údaji nebo formátem.
 
+\textbf{Atribut} je konkrétní vlastnost nebo charakteristika entity, která ji popisuje a umožňuje její identifikaci v~databázích. Každý záznam obsahuje jeden nebo více atributů, přičemž některé atributy mohou být klíčové pro rozpoznání duplicit.
+Atributy mohou být různých typů – například textové, číselné, kategorické nebo prostorové. V geolokačních datech bývají klíčovými atributy například souřadnice (zeměpisná šířka a délka), adresa, název místa nebo jeho typ (např. restaurace, park, obchodní centrum).
+
 Duplicitní záznamy vznikají tehdy, když databáze obsahuje více reprezentací stejné entity, ať už kvůli chybám v~zápisu, rozdílnému formátu dat, nebo rozdílným zdrojům dat. V~literatuře se však termíny označující proces identifikace těchto duplicit ne vždy používají jednotně a často se jejich významy překrývají. Zatímco některé zdroje považují následující pojmy za synonyma, jiné mezi nimi rozlišují:
 
 \begin{itemize}
@@ -41,20 +44,20 @@ Přestože by se na první pohled zdálo, že v~rámci jednoho datového zdroje 
 \begin{itemize}
   \item Lidský faktor – při zadávání dat člověkem ručně je velká pravděpodobnost zadání typografických chyb, různých nekonzistentních formátů a nebo přímo neplatných informací. Při zadávání dalších záznamů si pak daný člověk nemusí všimnout již existujícího záznamu vloženého dříve.
   \item Nedostatečné standardizace formátů – různé formuláře, dotazníky, nebo části/moduly jednoho systému mohou využívat různé formáty pro datumy, telefonní čísla, nebo rodná čísla a dalších typů dat. Pokud není správně ošetřen převod těchto dat do jednotného formátu před vložením záznamu, může opět docházet ke vzniku duplicit.
-  \item Chybějící integritní omezení databáze – kdyby byly sebevíce ošetřeny předchozí zmíněné způsoby, v~případě, že daná databáze nemá nastavená integritní omezení (např. na unikátní hodnoty v~rámci rodného čísla, IČO nebo třeba unikátnosti dvou a více atributů v~rámci jednoho záznamu), bude každý vložený záznam brán jako nový neexistující záznam, přestože se bude jednat o~identickou duplicitu.
+  \item Chybějící integritní omezení databáze – v~případě, že daná databáze nemá nastavená integritní omezení (např. na unikátní hodnoty v~rámci rodného čísla, IČO nebo třeba unikátnosti dvou a více atributů v~rámci jednoho záznamu), bude každý vložený záznam brán jako nový, doposud neexistující, záznam, přestože se může jednat o~identickou duplicitu.
 \end{itemize}
 
 \podsekce{Duplicity ve sloučeném zdroji}
-Při pokusu o~spojení více zdrojů do jednoho vzniká několik výzev. V~rámci business inteligence se tento proces nazývá ETL\footnote{Extract, transform, load
-} v~rámci něj může docházet k~duplicitám v~několika případech:
+Při pokusu o~spojení více zdrojů do jednoho vzniká několik výzev. V~rámci business inteligence se tento proces spojování různých datových zdrojů nazývá ETL\footnote{Extract, transform, load
+}a v~rámci něj může docházet k~duplicitám v~několika případech:
 
 \begin{itemize}
   \item Integrace různých systémů – v~případě systémů, které mají data o~entitách kvůli různým důvodům (např. inventární systém školy ukládá záznamy o~vybavení, online bazar má záznamy o~prodávaném vybavení), může vzniknout situace, kdy záznamy z~více systémů nelze spojit na základě společného unikátního klíče, protože má každý systém svůj unikátní pro danou entitu.
-  \item Průběžné spojování dat – některé datasety jsou pravidelně aktualizované, aby odráželi co nejvíce realitu. Pokud však entita z~realného světa v~rámci aktuality změnila zásadně své atributy (např. pekárna se přestěhovala na jinou adresu a přejmenovala se), může vzniknout situace, kdy některý ze zdrojů bude mít stále staré údaje, a jiný nové, a tím pádem nepůjde tento rozdíl spojit s~původním záznamem a bude se milně jevit, že jde o~novou entitu
+  \item Průběžné spojování dat – některé datasety jsou pravidelně aktualizované, aby co nejpřesněji odráželi realitu. Pokud však entita z~realného světa v~rámci aktuality změnila své atributy zásadně (např. pekárna se přestěhovala na jinou adresu a upravila své jméno), může vzniknout situace, kdy některý ze zdrojů bude mít stále staré údaje, a jiný nové, a tím pádem nepůjde tento rozdíl spojit s~původním záznamem a bude se milně jevit, že jde o~novou entitu
   \item Rozdílné definice entit a identifikační metody – Při integraci dat z~různých zdrojů se může stát, že jednotlivé systémy definují a identifikují stejné entity odlišně. Jeden systém může například využívat kombinaci jména, adresy a rodného čísla k~jednoznačné identifikaci osoby, zatímco jiný systém pracuje s~interním identifikačním číslem nebo používá jiné atributy (např. e-mailovou adresu). Tato nejednotnost vede k~tomu, že algoritmy pro slučování dat nemusí správně rozpoznat, že se jedná o~stejnou entitu, a následně dochází k~vytvoření duplicitních záznamů v~cílovém datovém skladu.
 \end{itemize}
 
-Toto nejsou za žádnou cenu všechny možné příčiny vzniku duplicit v~datech, nicméně by měli alespoň reprezentovat, jak se jednotlivé příčiny mohou lišit, a vysvětlit, proč nejde o~problém, který lze vyřešit univerzálně jedním způsobem.
+Toto zajisté nejsou všechny možné příčiny vzniku duplicit v~datech, nicméně by měli alespoň reprezentovat, jak se jednotlivé příčiny mohou lišit, a osvětlit důvod, proč nejde o~problém, který lze vyřešit univerzálně jedním způsobem.
 
 
 
@@ -80,10 +83,21 @@ Celkově lze říct, že neřešené duplicitní záznamy mají rozsáhlý negat
 % Příkladem kdy k takovému problému nedojde může být případ z prostředí České republiky a předpokládejme, že jde o data čistě občanů České republiky, kdy máme první datový zdroj s pacienty ordinace a druhý zdroj je databáze klientů zdravotní pojišťovny. V tomto případě lze snadno rozpoznat dané entity (osoby) na základě rodného čísla, které se u záznamů v těcho zdrojích pravděpodobně nachází. V tomto případě můžeme následně data zagregovat a dále s nimi pracovat.
 
 \sekce {Přístupy k~rozpoznání duplicitních entit}
-efektivní řešení problému duplicitních záznamů vyžaduje přístup, který kombinuje několik vrstev zpracování dat. Na počátku je nezbytná důkladná standardizace a čištění vstupních dat, čímž se eliminuje šum a zajišťuje se konzistence formátů. Následně se využívají metody pro porovnávání textových řetězců, pravděpodobnostní modely, optimalizace výpočtů a moderní přístupy založené na strojovém učení. Tato komplexní strategie zvyšuje přesnost a robustnost celého systému a umožňuje spolehlivé sjednocení duplicitních záznamů, což je klíčové pro následné analytické a rozhodovací procesy.
+K řešení problematiky detekce duplicit je třeba využít kombinaci několika metod, které se vzájemně doplňují a umožňují zvýšit celkovou přesnost a robustnost systému. Následující podkapitola podrobně rozebírá jednotlivé skupiny přístupů, jejich implementaci, výhody i nevýhody, a možnosti jejich vzájemného propojení.
 
 \podsekce {Heuristické metody a textové porovnávání}
-Heuristické metody vycházejí z předem definovaných pravidel a pracují s textovými řetězci, přičemž jejich hlavní výhodou je relativní jednoduchost implementace a nízká výpočetní náročnost. Tyto metody jsou vhodné zejména pro odhalování drobných chyb, překlepů či variací v zápisu.
+Heuristické metody vycházejí z předem definovaných pravidel a poznatků. Jejich hlavním cílem je rychlé a efektivní předfiltrování záznamů, u kterých existuje podezření na duplicitní reprezentaci. Mezi základní techniky patří:
+
+\begin{itemize}
+  \item{
+        \textbf{Levenshteinova vzdálenost} – metoda, která měří minimální počet operací (vložit, smazat nebo nahradit znak) potřebných k transformaci jednoho řetězce do druhého. V praxi se často využívá k identifikaci drobných překlepů nebo nesouladů v zápisech názvů či adres.
+        Výhodou je jednoduchá implementace a intuitivní interpretace výsledného skóre.
+        Je však citlivá na délku řetězce a má nižší účinnost při zpracování složitějších textových struktur, kde je třeba brát v úvahu i kontext.
+        }
+  \item{\textbf{Jaro-Winklerova podobnost} – metrika, která klade důraz na shodu znaků na začátku řetězce, což je obzvláště užitečné u osobních jmen nebo názvů, kde počáteční segment může nést klíčovou informaci.
+        Je užitečná pro svou citlivost na změny na začátku řetězce a schopnost odhalit typické chyby při zadávání dat.
+        V případě dlouhých řetězců může být však méně efektivní, protože se významné informace mohou nacházet v jejich střední nebo koncové části. }
+\end{itemize}
 
 Mezi základní techniky patří například \textbf{Jaro-Winklerova podobnost}, která kromě celkové shody hodnotí i umístění shodných znaků a zvlášť zvýhodňuje začátek řetězce. Tato vlastnost se osvědčuje především při porovnávání osobních jmen, kdy může dojít k chybám v úvodních znacích. Dále se využívá \textbf{Levenshteinova vzdálenost}, jež měří minimální počet operací (vložením, smazáním či nahrazením znaku) nutných k transformaci jednoho řetězce do druhého, což umožňuje detekovat i drobné překlepy. Kromě těchto metod se uplatňují techniky normalizace textu (\textbf{Simple Name Matching}), kdy dochází k odstranění diakritiky a sjednocení velikosti písmen. Doplňkovým přístupem jsou fonetické algoritmy, jako je \textbf{Metaphone} nebo \textbf{Match Rating Approach}, které převádějí slova do fonetických kódů, čímž umožňují identifikovat shodné výslovnosti i při odlišné grafické podobě.
 
@@ -94,16 +108,14 @@ V praxi se často aplikuje \textbf{Fellegi-Sunterův model}, který na základě
 \textbf{Expectation-Maximization}, jenž iterativně upravuje odhady a tím zvyšuje celkovou přesnost systému.
 
 \podsekce{Techniky optimalizace porovnání}
-Při zpracování rozsáhlých datových souborů je počet možných kombinací záznamů enormní, což výrazně zvyšuje výpočetní náročnost. Aby bylo možné efektivně porovnávat pouze relevantní páry, využívá se metoda \textbf{record blocking}. Tato technika seskupuje záznamy do bloků na základě klíčových atributů (například počáteční písmeno jména nebo region), čímž se výrazně redukuje počet nutných porovnání.
+Při zpracování rozsáhlých datových sad je počet možných kombinací záznamů vysoký, což výrazně zvyšuje výpočetní náročnost. Aby bylo možné efektivně porovnávat pouze relevantní záznamy, využívá se metoda \textbf{record blocking}. Tato technika seskupuje záznamy do bloků na základě klíčových atributů (například počáteční písmeno jména nebo region), čímž se výrazně redukuje počet nutných porovnání.
 
-Po předběžném porovnání se identifikované shodné záznamy seskupují do klastrů. V rámci těchto \textit{klastrů} se následně stanovuje tzv. kanonická hodnota, tedy reprezentativní záznam, který bude sloužit jako finální sjednocená verze dané entity. Tento krok je klíčový pro dosažení konečné konzistence a integrity dat.
-
-\podsekce{Metody založené na strojovém učení a hlubokých neuronových sítích}
+\podsekce{Metody založené na strojovém učení}
 S rozvojem datové analytiky se čím dál více prosazují metody založené na strojovém učení, které jsou schopny se adaptivně učit z tréninkových dat. V rámci supervizovaného učení se modely trénují na označených datech, což umožňuje detekovat složité vzory a kombinovat informace z více atributů současně.
 
-Dalším krokem ve vývoji jsou hluboké neuronové sítě, které převádějí textová data do vektorových reprezentací neboli embeddingů. Tyto reprezentace zachycují sémantické vztahy mezi slovy, což umožňuje identifikovat jemné rozdíly a podobnosti, jež tradiční metody často přehlédnou. Hybridní modely, kombinující principy strojového učení s pravděpodobnostními přístupy, pak poskytují nejen klasifikaci shod, ale také odhadují míru důvěryhodnosti výsledků pomocí vážených skóre.
+Dalším krokem ve vývoji jsou hluboké neuronové sítě, které převádějí textová data do vektorových reprezentací neboli embeddingů. Tyto reprezentace zachycují sémantické vztahy mezi slovy, což umožňuje identifikovat malé rozdíly a podobnosti, jež tradiční metody často přehlédnou. Hybridní modely, kombinující principy strojového učení s pravděpodobnostními přístupy, a tím pak poskytují nejen klasifikaci shod, ale také odhadují míru důvěryhodnosti výsledků pomocí vážených skóre.
 
-Komplexní systém rozpoznávání duplicitních záznamů se skládá z několika vrstev, počínaje důkladnou standardizací a čištěním dat, pokračuje aplikací heuristických metod a probabilistických modelů, dále optimalizací porovnávání pomocí record blockingu a clusteringu a končí využitím adaptivních metod strojového učení a hlubokých neuronových sítí. Tato strategie umožňuje efektivní identifikaci a sjednocení duplicitních záznamů v rozsáhlých a heterogenních datových souborech a tím výrazně zvyšuje kvalitu dat pro následné analytické a rozhodovací procesy.
+Systém rozpoznávání duplicitních záznamů se skládá z několika vrstev, počínaje důkladnou standardizací a čištěním dat, pokračuje aplikací heuristických metod a probabilistických modelů, dále optimalizací porovnávání pomocí record blockingu a clusteringu a končí využitím adaptivních metod strojového učení a hlubokých neuronových sítí. Tato strategie umožňuje efektivní identifikaci a sjednocení duplicitních záznamů v rozsáhlých a heterogenních datových souborech a tím výrazně zvyšuje kvalitu dat pro následné analytické a rozhodovací procesy.
 % Detekce duplicit bez využití strojového učení zahrnuje například algoritmus pro výběr párů Sorted-Neighborhood-Method (SNM). Je možné provést porovnání všech možných kombinací záznamů, ale SNM efektivně snižuje počet nutných porovnání tím, že seřadí data a porovnává pouze sousední záznamy. Pro následné měření podobnosti mezi záznamy se často používají metody jako Jaro-Winkler a Levenshtein, které posuzují, do jaké míry se záznamy podobají. Na základě takové podobnosti lze určit, zda jsou porovnané záznamy duplicity. Tyto metody jsou obzvláště užitečné pro identifikaci menších rozdílů a překlepů ve zpracovávaných datech. \cite{draisbach_choosing_2013}
 
 % Metody strojového učení nabízí pokročilejší možnosti, které umožňují identifikovat složitější vzory, které by metody bez využití strojového učení nemuseli odhalit. Například, hluboké neuronové sítě mohou být trénovány na rozsáhlých datových sadách a díky tomu mohou nalézt v~datech složité vzory. Takto natrénované neuronové sítě mohou označit za duplicitní záznamy, které na první pohled jako duplicity nevypadají. \cite{pasek_mqdd_2022}
