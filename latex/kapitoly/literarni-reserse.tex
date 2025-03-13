@@ -53,24 +53,24 @@ Při pokusu o~spojení více zdrojů do jednoho vzniká několik výzev. V~rámc
 
 \begin{itemize}
   \item Integrace různých systémů – v~případě systémů, které mají data o~entitách kvůli různým důvodům (např. inventární systém školy ukládá záznamy o~vybavení, online bazar má záznamy o~prodávaném vybavení), může vzniknout situace, kdy záznamy z~více systémů nelze spojit na základě společného unikátního klíče, protože má každý systém svůj unikátní pro danou entitu.
-  \item Průběžné spojování dat – některé datasety jsou pravidelně aktualizované, aby co nejpřesněji odráželi realitu. Pokud však entita z~realného světa v~rámci aktuality změnila své atributy zásadně (např. pekárna se přestěhovala na jinou adresu a upravila své jméno), může vzniknout situace, kdy některý ze zdrojů bude mít stále staré údaje, a jiný nové, a tím pádem nepůjde tento rozdíl spojit s~původním záznamem a bude se milně jevit, že jde o~novou entitu
-  \item Rozdílné definice entit a identifikační metody – Při integraci dat z~různých zdrojů se může stát, že jednotlivé systémy definují a identifikují stejné entity odlišně. Jeden systém může například využívat kombinaci jména, adresy a rodného čísla k~jednoznačné identifikaci osoby, zatímco jiný systém pracuje s~interním identifikačním číslem nebo používá jiné atributy (např. e-mailovou adresu). Tato nejednotnost vede k~tomu, že algoritmy pro slučování dat nemusí správně rozpoznat, že se jedná o~stejnou entitu, a následně dochází k~vytvoření duplicitních záznamů v~cílovém datovém skladu.
+  \item Průběžné spojování dat – některé datasety jsou pravidelně aktualizované, aby co nejpřesněji odráželi realitu. Pokud však entita z~realného světa v~rámci aktuality změnila své atributy zásadně (např. pekárna se přestěhovala na jinou adresu a upravila své jméno), může vzniknout situace, kdy některý ze zdrojů bude mít stále staré údaje, a jiný nové, a tím pádem nepůjde tento rozdíl spojit s~původním záznamem a bude se milně jevit, že jde o~novou entitu.
+  \item Rozdílné definice entit a identifikační metody – při integraci dat z~různých zdrojů se může stát, že jednotlivé systémy definují a identifikují stejné entity odlišně. Jeden systém může například využívat kombinaci jména, adresy a rodného čísla k~jednoznačné identifikaci osoby, zatímco jiný systém pracuje s~interním identifikačním číslem nebo používá jiné atributy (např. e-mailovou adresu). Tato nejednotnost vede k~tomu, že algoritmy pro slučování dat nemusí správně rozpoznat, že se jedná o~stejnou entitu, a následně dochází k~vytvoření duplicitních záznamů v~cílovém datovém skladu.
 \end{itemize}
 
-Toto zajisté nejsou všechny možné příčiny vzniku duplicit v~datech, nicméně by měli alespoň reprezentovat, jak se jednotlivé příčiny mohou lišit, a osvětlit důvod, proč nejde o~problém, který lze vyřešit univerzálně jedním způsobem.
+Toto zajisté nejsou všechny možné příčiny vzniku duplicit v~datech, měli by však nastínit, jak se jednotlivé příčiny mohou lišit, a proč se jedná o~problém, který nelze vyřešit univerzálním způsobem.
 
 
 
 \sekce{Důsledky duplicitních dat}
-Duplicitní data mohou mít na organizaci zásadní a mnohostranné dopady. Především se výrazně snižuje kvalita dat – informace, které jsou zrcadlem reality, se stávají nepřesnými, neúplnými a méně aktuálními. To ovlivňuje nejen tvorbu reportů, ale i analytické procesy, které jsou základem strategických rozhodnutí. Rozhodnutí vycházející z~chybně interpretovaných dat mohou vést k~nesprávným závěrům, což se může projevit například ve špatném plánování, neefektivním řízení zdrojů nebo dokonce v~riziku finančních ztrát.
+Duplicitní data mohou mít na organizaci zásadní a mnohostranné dopady. Především se výrazně snižuje kvalita dat, informace se stávají nepřesnými, neúplnými a méně aktuálními. To ovlivňuje nejen tvorbu reportů, ale i analytické procesy, které jsou základem strategických rozhodnutí. Rozhodnutí vycházející z~chybně interpretovaných dat mohou vést k~nesprávným závěrům, což se může projevit například ve špatném plánování, neefektivním řízení zdrojů nebo dokonce v~riziku finančních ztrát.
 
 Dalším významným důsledkem je snížení efektivity pracovníků. V~situaci, kdy je třeba trávit spoustu času identifikací a odstraňováním duplicit, se zaměstnanci odklánějí od jiných úkolů, které by mohly přinést přidanou hodnotu. Kromě rutinní práce, jako je kontrola a aktualizace záznamů, je také nutné dohledávat různé verze stejných dat, což výrazně komplikuje správu informací. Takový stav nejenže zvyšuje provozní náklady, ale také vede k~vyšší chybovosti a celkovému zhoršení kvality práce.
 
-Nesmíme opomenout ani problémy spojené s~dodržováním regulatorních požadavků. Regulace často vyžadují přesné, konzistentní a bezpečné uchovávání dat. Duplicitní záznamy komplikují tvorbu přesných reportů, což může mít za následek sankce, pokuty nebo dokonce ztrátu důvěry ze strany regulačních orgánů. Správa citlivých údajů, jako jsou osobní nebo finanční informace, se také stává náročnější, což představuje další riziko v~případě případných narušení bezpečnosti nebo při nutnosti vyhovět zákonným požadavkům na přístup a správu těchto dat.
+Nesmíme opomenout ani problémy spojené s~dodržováním regulatorních požadavků. Regulace často vyžadují přesné, konzistentní a bezpečné uchovávání dat. Duplicitní záznamy komplikují tvorbu přesných reportů, což může mít za následek sankce, pokuty nebo dokonce ztrátu důvěry ze strany regulačních orgánů, spolupracujících firem a zákazníků. Správa citlivých údajů, jako jsou osobní nebo finanční informace, se také stává náročnější, což představuje další riziko v~případě případných narušení bezpečnosti nebo při nutnosti vyhovět zákonným požadavkům na přístup a správu těchto dat.
 
-Konečně, duplicitní data negativně ovlivňují i zákaznický servis a správu IT infrastruktury. Když jsou informace o~zákaznících roztříštěny mezi několika duplicitními záznamy, je pro pracovníky obtížné získat ucelený přehled o~jejich historii, což vede ke zhoršení kvality poskytovaných služeb. Současně se tím zvyšuje náročnost správy datových logů, zálohovacích a archivních procesů, což dále zatěžuje síťovou infrastrukturu a snižuje celkovou viditelnost provozu.
+Duplicitní data také negativně ovlivňují i zákaznický servis a správu IT infrastruktury. Když jsou informace o~zákaznících roztříštěny mezi několika duplicitními záznamy, je pro pracovníky obtížné získat ucelený přehled o~jejich historii, což vede ke zhoršení kvality poskytovaných služeb. Současně se tím zvyšuje náročnost správy datových logů, zálohovacích a archivních procesů.
 
-Celkově lze říct, že neřešené duplicitní záznamy mají rozsáhlý negativní vliv na efektivitu, bezpečnost a spolehlivost informací v~organizaci. Firmy se snaží aktivně problém s~kvalitou dat řešit, a to ukazuje i průzkum "Big Data and AI Executive Survey 2024" od NewVantage Partners za rok 2023. Průzkumu se učasnilo více než 100 firem z~globálního Fortune 1000, a ukazuje, že pro většinu organizací (87,9\,\%) má investice do dat a analytiky vysokou prioritu. Ze stejného výzkumu však i vychází informace o~tom, že snaha o~zlepšení kvality dat byla úspěšná pouze u~37\,\% dotázaných firem.
+Celkově lze říct, že neřešené duplicitní záznamy mají rozsáhlý negativní vliv na efektivitu, bezpečnost a spolehlivost informací v~organizaci. Firmy se snaží aktivně problém s~kvalitou dat řešit, a to ukazuje i průzkum "Big Data and AI Executive Survey 2024" od NewVantage Partners za rok 2023. Průzkumu se učasnilo více než 100 firem z~globálního Fortune 1000, a ukazuje, že pro většinu organizací (87,9\,\%) má investice do dat a analytiky vysokou prioritu. Ze stejného výzkumu však i vychází informace, že snaha o~zlepšení kvality dat byla úspěšná pouze u~37\,\% dotázaných firem.
 
 \begin{figure}[htb]
   \centering
@@ -80,95 +80,76 @@ Celkově lze říct, že neřešené duplicitní záznamy mají rozsáhlý negat
   \label{fig:google-trends}
 \end{figure}
 
-% Příkladem kdy k takovému problému nedojde může být případ z prostředí České republiky a předpokládejme, že jde o data čistě občanů České republiky, kdy máme první datový zdroj s pacienty ordinace a druhý zdroj je databáze klientů zdravotní pojišťovny. V tomto případě lze snadno rozpoznat dané entity (osoby) na základě rodného čísla, které se u záznamů v těcho zdrojích pravděpodobně nachází. V tomto případě můžeme následně data zagregovat a dále s nimi pracovat.
 
-\sekce {Přístupy k~rozpoznání duplicitních entit}
-K řešení problematiky detekce duplicit je třeba využít kombinaci několika metod, které se vzájemně doplňují a umožňují zvýšit celkovou přesnost a robustnost systému. Následující podkapitola podrobně rozebírá jednotlivé skupiny přístupů, jejich implementaci, výhody i nevýhody, a možnosti jejich vzájemného propojení.
+\sekce {Metody pro rozpoznání duplicitních entit v datech}
+K řešení detekce duplicit je třeba využít kombinaci několika metod, které se vzájemně doplňují a umožňují zvýšit celkovou přesnost a robustnost systému. Následující podkapitola rozebírá jednotlivé skupiny přístupů, jejich fungování, výhody i nevýhody, a možnosti jejich vzájemného propojení.
 
-\podsekce {Heuristické metody a textové porovnávání}
-Heuristické metody vycházejí z předem definovaných pravidel a poznatků. Jejich hlavním cílem je rychlé a efektivní předfiltrování záznamů, u kterých existuje podezření na duplicitní reprezentaci. Mezi základní techniky patří:
+\podsekce {Obecné metody detekce duplicitních entit}
 
-\begin{itemize}
-  \item{
-        \textbf{Levenshteinova vzdálenost} – metoda, která měří minimální počet operací (vložit, smazat nebo nahradit znak) potřebných k transformaci jednoho řetězce do druhého. V praxi se často využívá k identifikaci drobných překlepů nebo nesouladů v zápisech názvů či adres.
-        Výhodou je jednoduchá implementace a intuitivní interpretace výsledného skóre.
-        Je však citlivá na délku řetězce a má nižší účinnost při zpracování složitějších textových struktur, kde je třeba brát v úvahu i kontext.
-        }
-  \item{\textbf{Jaro-Winklerova podobnost} – metrika, která klade důraz na shodu znaků na začátku řetězce, což je obzvláště užitečné u osobních jmen nebo názvů, kde počáteční segment může nést klíčovou informaci.
-        Je užitečná pro svou citlivost na změny na začátku řetězce a schopnost odhalit typické chyby při zadávání dat.
-        V případě dlouhých řetězců může být však méně efektivní, protože se významné informace mohou nacházet v jejich střední nebo koncové části. }
-\end{itemize}
+\subsubsection {Pravidlové metody}
+Jedná se o principielně jednoduchou skupinu metod. Jejich princip spočívá v tom, že se vytváří jednoznačná pravidla nebo sada pravidel, které podle daných kritérií určují duplicitní skupiny záznamů. Taková pravidla bývají navržena experty v dané oblasti, kteří vychází ze znalostí a charakteristik konkrétních dat.
 
-Mezi základní techniky patří například \textbf{Jaro-Winklerova podobnost}, která kromě celkové shody hodnotí i umístění shodných znaků a zvlášť zvýhodňuje začátek řetězce. Tato vlastnost se osvědčuje především při porovnávání osobních jmen, kdy může dojít k chybám v úvodních znacích. Dále se využívá \textbf{Levenshteinova vzdálenost}, jež měří minimální počet operací (vložením, smazáním či nahrazením znaku) nutných k transformaci jednoho řetězce do druhého, což umožňuje detekovat i drobné překlepy. Kromě těchto metod se uplatňují techniky normalizace textu (\textbf{Simple Name Matching}), kdy dochází k odstranění diakritiky a sjednocení velikosti písmen. Doplňkovým přístupem jsou fonetické algoritmy, jako je \textbf{Metaphone} nebo \textbf{Match Rating Approach}, které převádějí slova do fonetických kódů, čímž umožňují identifikovat shodné výslovnosti i při odlišné grafické podobě.
+Pravidla mají zpravidla jasně definované atributy, nebo skupinu atributů, které porovnávají a to buď striktně (hodnoty atributů musí být identické), kdy se jedná o tzv. exact matching, nebo volněji s použitím podobnostních metrik (Levenshteinova vzdálenost, Jaro-Winkler podobnost, nebo Jaccardův koeficient) či prahových hodnot. Lze však kombinovat striktní a volnější porovnání v rámci složeného pravidla. To může slovně být popsáno třeba takto: \textit{„Dva záznamy jsou duplicity, pokud se shodují v atributu jméno a příjmení alespoň na 90~\% (dle Levenshteinovy vzdálenosti) a zároveň mají shodné datum narození.“}.
 
-\podsekce {Probabilistické přístupy}
-Probabilistické metody se zaměřují na výpočet pravděpodobnosti, že dva záznamy odpovídají téže entitě, a to na základě analýzy jednotlivých atributů. Každý atribut je ohodnocen pravděpodobností shody, přičemž klíčovými pojmy jsou \textit{m-hodnota} (pravděpodobnost shody v případě, že záznamy patří ke stejné entitě) a \textit{u-hodnota} (pravděpodobnost shody v opačném případě). Pro kombinaci těchto hodnot se využívá \textbf{Bayesova věta}, která umožňuje vážit jednotlivé atributy podle jejich diskriminační síly.
+K volnějšímu porovnání lze úvest i fonetické metody, které se používají primárně u textových údajů, které zní velice podobně, ale zapisují se různě. Jedná se například o Soundex, Metaphone a Double Metaphone, které z textového vstupu generují fonetické kódy, které lze následně porovnávat, a to buď striktně, nebo s využitím podobnostních metrik.
 
-V praxi se často aplikuje \textbf{Fellegi-Sunterův model}, který na základě váženého součtu srovnávacích skóre a stanovené prahové hodnoty usnadňuje rozhodování o shodě záznamů. Pro optimalizaci parametrů modelu se dále využívá algoritmus
-\textbf{Expectation-Maximization}, jenž iterativně upravuje odhady a tím zvyšuje celkovou přesnost systému.
+Výhodou pravidlových metod je snadná implementace a jasná interpretace výsledků. Nicméně vytvořená pravidla jsou jednak velice málo flexibilní, jelikož jsou psaná vždy specificky pro konkrétní typ dat, nebo pro konkrétní odvětví. Pro jednoduché scénáře mohou být dostačující, nicméně ve složitějších situacích mohou sloužit spíš jako vstupní krok pro následné pokročilejší metody, které následují.
 
-\podsekce{Techniky optimalizace porovnání}
-Při zpracování rozsáhlých datových sad je počet možných kombinací záznamů vysoký, což výrazně zvyšuje výpočetní náročnost. Aby bylo možné efektivně porovnávat pouze relevantní záznamy, využívá se metoda \textbf{record blocking}. Tato technika seskupuje záznamy do bloků na základě klíčových atributů (například počáteční písmeno jména nebo region), čímž se výrazně redukuje počet nutných porovnání.
+\subsubsection {Metody založené na podobnosti}
+\todo{Definice podobnosti, používané metriky (textové, numerické, atd.)}
+\todo{Praktické ukázky (Levenshteinova vzdálenost, Jaccard, kosinová podobnost)}
+\todo{Výhody, nevýhody a omezení metody}
 
-\podsekce{Metody založené na strojovém učení}
-S rozvojem datové analytiky se čím dál více prosazují metody založené na strojovém učení, které jsou schopny se adaptivně učit z tréninkových dat. V rámci supervizovaného učení se modely trénují na označených datech, což umožňuje detekovat složité vzory a kombinovat informace z více atributů současně.
+\subsubsection {Pravděpodobnostní metody}
+\todo{Definice a princip Fellegi-Sunterova modelu a jeho variant}
+\todo{Možnosti aplikace bayesovských metod}
+\todo{Výhody, nevýhody a limitace při použití}
 
-Dalším krokem ve vývoji jsou hluboké neuronové sítě, které převádějí textová data do vektorových reprezentací neboli embeddingů. Tyto reprezentace zachycují sémantické vztahy mezi slovy, což umožňuje identifikovat malé rozdíly a podobnosti, jež tradiční metody často přehlédnou. Hybridní modely, kombinující principy strojového učení s pravděpodobnostními přístupy, a tím pak poskytují nejen klasifikaci shod, ale také odhadují míru důvěryhodnosti výsledků pomocí vážených skóre.
+\subsubsection {Metody strojového učení}
+\todo{Definice a typy (supervizované, semi-supervizované, nesupervizované)}
+\todo{Typické algoritmy: rozhodovací stromy, Random Forest, Gradient Boosting}
+\todo{Klíčové aspekty přípravy dat a výběr atributů}
+\todo{Výhody, nevýhody}
 
-Systém rozpoznávání duplicitních záznamů se skládá z několika vrstev, počínaje důkladnou standardizací a čištěním dat, pokračuje aplikací heuristických metod a probabilistických modelů, dále optimalizací porovnávání pomocí record blockingu a clusteringu a končí využitím adaptivních metod strojového učení a hlubokých neuronových sítí. Tato strategie umožňuje efektivní identifikaci a sjednocení duplicitních záznamů v rozsáhlých a heterogenních datových souborech a tím výrazně zvyšuje kvalitu dat pro následné analytické a rozhodovací procesy.
-% Detekce duplicit bez využití strojového učení zahrnuje například algoritmus pro výběr párů Sorted-Neighborhood-Method (SNM). Je možné provést porovnání všech možných kombinací záznamů, ale SNM efektivně snižuje počet nutných porovnání tím, že seřadí data a porovnává pouze sousední záznamy. Pro následné měření podobnosti mezi záznamy se často používají metody jako Jaro-Winkler a Levenshtein, které posuzují, do jaké míry se záznamy podobají. Na základě takové podobnosti lze určit, zda jsou porovnané záznamy duplicity. Tyto metody jsou obzvláště užitečné pro identifikaci menších rozdílů a překlepů ve zpracovávaných datech. \cite{draisbach_choosing_2013}
+\subsubsection {Metody založené na hlubokém učení}
+\todo{Princip neuronových sítí pro entity matching (např. embeddings, transformer modely)}
+\todo{Scénáře nasazení a případové studie z literatury}
+\todo{Omezení a nevýhody (black-box přístup, náročnost na data a výpočetní zdroje)}
 
-% Metody strojového učení nabízí pokročilejší možnosti, které umožňují identifikovat složitější vzory, které by metody bez využití strojového učení nemuseli odhalit. Například, hluboké neuronové sítě mohou být trénovány na rozsáhlých datových sadách a díky tomu mohou nalézt v~datech složité vzory. Takto natrénované neuronové sítě mohou označit za duplicitní záznamy, které na první pohled jako duplicity nevypadají. \cite{pasek_mqdd_2022}
-% \todo{Algoritmy a techniky}
+\subsubsection {Grafové metody}
+\todo{Grafové přístupy k modelování entit}
+\todo{Komunitní detekce, grafové neuronové sítě (GNN)}
+\todo{Specifika aplikace, výhody, nevýhody}
 
-% \sekce {Specifika geoprostorových dat}
-% \todo {Typy geodat(vector, body, linie a rastry), formáty uložení, souřadnicové systémy}
-% Jde o~data, která představují místa, oblasti nebo třeba předměty ze skutečného světa, a udávají jejich přesnou lokalitu pomocí souřadnic na Zemi. Můžeme mít například geodata představující státní hranice evropských zemí, geodata představující všechny lampy veřejného osvětlení v~Brně.
-% \todo{Obrázek s~GIS mapama}
+\podsekce {Specifické metody pro rozpoznání duplicit v~geolokačních datech}
 
-% \podsekce{Souřadnicové systémy}
+\todo{Specifika geolokačních dat}
+\todo{Prostorová přesnost a chyby měření}
+\todo{Problematika výběru vhodných vzdálenostních metrik a projekcí}
 
-% Geodata používají souřadnice pro popsání pozice konkrétního objektu. Těchto souřadnic však existuje hned několik a při práci s~geodaty je potřeba vědět, které to jsou. Existují různé typy souřadnicových systémů, které se používají podle konkrétních požadavků. Mezi nejpoužívanější v~kontextu České republiky patří:
+\subsubsection{Metody založené na vzdálenosti}
+\todo{Popis a využití Haversinovy a Vincentyho vzdálenosti}
+\todo{Aplikace vzdálenostních metod, výběr prahů}
 
-% \podsekce{Globální a celosvětové použití}
+\subsubsection{Shlukovací (clusteringové) metody}
+\todo{DBSCAN, HDBSCAN a OPTICS}
+\todo{Typické scénáře použití v praxi}
+\todo{Výhody a omezení metod}
 
-% \podsekce{Geografický souřadnicový systém (GCS) - WGS 84}
+\subsubsection{Metody založené na prostorové mřížce (grid-based)}
+\todo{Principy Geohashe a prostorových mřížek}
+\todo{Scénáře využití a důsledky výběru velikosti mřížky}
+\todo{Omezení metody a problémy s přesností}
 
-% Systém využívající úhlových souřadnic, konkrétně zeměpisné šířky a délky. Nadmořská výška se udává v~metrech nad povrchem referenčního elipsoidu.
-% Je vhodný pro geodata představující entity na celosvětové úrovni. Díky tomu je využíván například i v~GPS technologii, kde je zapotřebí pracovat v~rámci celé Země.
-% Není však příliš vhodná pro lokální úroveň (města, ulice), pokud je vyžadována vysoká přesnost. Je tomu tak protože při výpočtu vzdáleností nebo ploch z~úhlových souřadnic může docházet k~nepřesnostem.
+\subsubsection{Pravděpodobnostní a bayesovské metody}
+\todo{Modelování prostorové nepřesnosti (GPS chyby)}
+\todo{Příklady bayesovských přístupů ke geolokaci}
+\todo{Výhody a limitace těchto metod}
 
-% \podsekce{Regionální a národní použití}
+\subsubsection{Metody strojového učení a hlubokého učení v~geolokaci}
+\todo{Stručně zmínit možnost aplikace ML přístupů, pokud to téma umožňuje}
+\todo{Zvýraznit případové studie (pokud existují relevantní)}
 
-% \podsekce{Projekční souřadnicový systém (PCS) - S-JTSK (Systém Jednotné Trigonometrické Sítě Katastrální)}
-
-% Tento konkrétní systém je navržen pro Českou republiku a umožňuje tak na jejím území mapovat s~vysokou přesností. Je proto používán jako jeden ze závazných souřadnicových systémů pro orgány České republiky.
-% Souřadnice jsou vyjádřeny pomocí kartézského souřadnicového systému (X - sever, Y - východ) a jednotkou jsou metry. Pro nadmořskou výšku používá metry nad střední hladinou Jaderského moře.
-
-% \podsekce{Evropský souřadnicový systém - ETRS89 (European Terrestrial Reference System 1989)}
-
-% Souřadnicový systém ETRS89 slouží jako standard pro evropské projekty a díky tomu i usnadňuje spolupráci vícero zemí na projektech s~mezihraničním rozsahem.
-% Stejně jako S-JTSK používá kartézský souřadnicový systém v~jednotkách metru. Výška v~tomto systému je počítáná v~metrech od povrchu referenčního elipsoidu GRS80.
-
-% Toto nejsou zdaleka všechny souřadnicové systémy. Každý z~nich slouží pro jiné potřeby a je důležité si uvědomit, jak se liší, a v~jakém kontextu se s~nimi lze setkat.
-
-% % \todo{Tvary geodat (points, lines, and polygons)}
-
-% \podsekce{K~čemu slouží}
-
-% Geodata sama o~sobě ale popisují vždy specifický objekt. Aby se dali z~těchto dat získat nějaké znalosti, je potřeba je dále zpracovávat. K~tomu slouží například geografické informační systémy (GIS). Tyto systémy dokáží poskytnutá data analyzovat a vizualizovat a dále s~nimi pracovat dle potřeby. Mohou tak umožnit například přehledně vidět, v~jakém úseku silnice je v~daný čas nejvíce aut, a zároveň vidět, ze kterých navazujících silnic tam tyto auto přijíždí. Díky takové vizualizaci a analýze lze následně vycházet například při plánování dopravní infrastruktury.
-
-% Každý kdo otevře služby jako Google Maps, Seznam Mapy nebo Apple Maps se dívá na několika vrstvou vizualizaci geodat. Na první pohled se jedná o~běžnou mapu, avšak vizualizace v~těchto službách je běžně tvořena několika samostatnými vrstvami:
-
-% \begin{itemize}
-%   \item vrstvy komunikace,
-%   \item vrstvy staveb,
-%   \item vrstvy řek,
-%   \item vrstvy zeleně a dalších.
-% \end{itemize}
-
-% % \todo{Obrázek map z~aplikací}
-% Každá taková vrstva je sada geodat, která popisuje daný typ předmětu/lokace s~přesnými souřadnicemi dalšími pomocnými atributy/vlastnostmi.
-
-% \sekce {Existující nástroje}
-% \todo{Popište dostupné software, jejich výhody a nevýhody}
+\subsubsection{Geokódování a porovnávání adres}
+\todo{Standardizace adresních údajů}
+\todo{Geokódovací nástroje a postupy}
