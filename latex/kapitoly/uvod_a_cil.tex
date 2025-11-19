@@ -2,12 +2,12 @@
 \sekce{Úvod}
 Společnosti poskytující služby v~oblasti Location Intelligence využívají své platformy pro komplexní geoprostorové analýzy, což je zásadní pro efektivní rozhodování v~různých typech podnikání. Jako součást těchto platforem, některé společnosti, včetně CleverMaps, nabízí služby zvané jako Data Marketplace, které umožňují uživatelům získávat a integrovat různorodé datové sady. Tyto sady zahrnují např. demografické informace, obchodní statistiky a infrastrukturu měst, což pomáhá klientům lépe cílit své služby a strategická rozhodnutí. \cite{clevermaps_location_2024}
 
-Vzhledem k~tomu, že při sběru dat a následnou manipulací s~geoprostorovými daty dochází částo ke kombinování dat z~různých zdrojů (pro co největší úplnost konečných datových sad), vzniká problém s výskytem duplicitních záznamů. Duplicity v~datech mohou mít různé podoby a vznikají z~několika důvodů, některé z nich jsou:
+Vzhledem k~tomu, že při sběru dat a následnou manipulací s~geoprostorovými daty dochází často ke kombinování dat z~různých zdrojů (pro co největší úplnost konečných datových sad), vzniká problém s výskytem duplicitních záznamů. Duplicity v~datech mohou mít různé podoby a vznikají z~několika důvodů, některé z nich jsou:
 
 \begin{itemize}
 	\item \textbf{Rozdílné názvy stejných míst} – např. \textit{"Velký městský park"} vs. \textit{"Park v~centru města"}.
 	\item \textbf{Typografické chyby a nejednotné formáty} – např. ulice \textit{"Masarykova"} vs. \textit{"Masarykova tř."}.
-	\item \textbf{Rozdílné souřadnicové systémy} – jeden dataset může používat \textit{WGS84}, zatímco jiný \textit{S-JTSK}.
+	\item \textbf{Rozdílné souřadnicové systémy} – jeden data set může používat \textit{WGS84}, zatímco jiný \textit{S-JTSK}.
 \end{itemize}
 
 Tyto duplicity snižují kvalitu dat a mohou způsobit chyby v~rozhodovacích procesech, např. při plánování dopravy, marketingových analýzách nebo při geokódování obchodních poboček. Proto je detekce a eliminace duplicit v~geoprostorových datech klíčová. K~identifikaci duplicit mohou být využity různé metody, od jednoduchých textových porovnání až po složitější techniky strojového učení, které analyzují podobnost dat v~širším kontextu. \cite{nauman_introduction_2022, christen_data_2012}
