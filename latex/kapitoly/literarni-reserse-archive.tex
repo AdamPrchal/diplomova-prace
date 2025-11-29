@@ -1,35 +1,35 @@
 
 \podsekce {Heuristické metody a textové porovnávání}
-Heuristické metody vycházejí z předem definovaných pravidel a poznatků. Jejich hlavním cílem je rychlé a efektivní předfiltrování záznamů, u kterých existuje podezření na duplicitní reprezentaci. Mezi základní techniky patří:
+Heuristické metody vycházejí z~předem definovaných pravidel a poznatků. Jejich hlavním cílem je rychlé a efektivní předfiltrování záznamů, u~kterých existuje podezření na duplicitní reprezentaci. Mezi základní techniky patří:
 
 \begin{itemize}
 	\item{
-	      \textbf{Levenshteinova vzdálenost} – metoda, která měří minimální počet operací (vložit, smazat nebo nahradit znak) potřebných k transformaci jednoho řetězce do druhého. V praxi se často využívá k identifikaci drobných překlepů nebo nesouladů v zápisech názvů či adres.
+	      \textbf{Levenshteinova vzdálenost} – metoda, která měří minimální počet operací (vložit, smazat nebo nahradit znak) potřebných k~transformaci jednoho řetězce do druhého. V~praxi se často využívá k~identifikaci drobných překlepů nebo nesouladů v~zápisech názvů či adres.
 	      Výhodou je jednoduchá implementace a intuitivní interpretace výsledného skóre.
-	      Je však citlivá na délku řetězce a má nižší účinnost při zpracování složitějších textových struktur, kde je třeba brát v úvahu i kontext.
+	      Je však citlivá na délku řetězce a má nižší účinnost při zpracování složitějších textových struktur, kde je třeba brát v~úvahu i kontext.
 	      }
-	\item{\textbf{Jaro-Winklerova podobnost} – metrika, která klade důraz na shodu znaků na začátku řetězce, což je obzvláště užitečné u osobních jmen nebo názvů, kde počáteční segment může nést klíčovou informaci.
+	\item{\textbf{Jaro-Winklerova podobnost} – metrika, která klade důraz na shodu znaků na začátku řetězce, což je obzvláště užitečné u~osobních jmen nebo názvů, kde počáteční segment může nést klíčovou informaci.
 	      Je užitečná pro svou citlivost na změny na začátku řetězce a schopnost odhalit typické chyby při zadávání dat.
-	      V případě dlouhých řetězců může být však méně efektivní, protože se významné informace mohou nacházet v jejich střední nebo koncové části. }
+	      V~případě dlouhých řetězců může být však méně efektivní, protože se významné informace mohou nacházet v~jejich střední nebo koncové části. }
 \end{itemize}
 
-Mezi základní techniky patří například \textbf{Jaro-Winklerova podobnost}, která kromě celkové shody hodnotí i umístění shodných znaků a zvlášť zvýhodňuje začátek řetězce. Tato vlastnost se osvědčuje především při porovnávání osobních jmen, kdy může dojít k chybám v úvodních znacích. Dále se využívá \textbf{Levenshteinova vzdálenost}, jež měří minimální počet operací (vložením, smazáním či nahrazením znaku) nutných k transformaci jednoho řetězce do druhého, což umožňuje detekovat i drobné překlepy. Kromě těchto metod se uplatňují techniky normalizace textu (\textbf{Simple Name Matching}), kdy dochází k odstranění diakritiky a sjednocení velikosti písmen. Doplňkovým přístupem jsou fonetické algoritmy, jako je \textbf{Metaphone} nebo \textbf{Match Rating Approach}, které převádějí slova do fonetických kódů, čímž umožňují identifikovat shodné výslovnosti i při odlišné grafické podobě.
+Mezi základní techniky patří například \textbf{Jaro-Winklerova podobnost}, která kromě celkové shody hodnotí i umístění shodných znaků a zvlášť zvýhodňuje začátek řetězce. Tato vlastnost se osvědčuje především při porovnávání osobních jmen, kdy může dojít k~chybám v~úvodních znacích. Dále se využívá \textbf{Levenshteinova vzdálenost}, jež měří minimální počet operací (vložením, smazáním či nahrazením znaku) nutných k~transformaci jednoho řetězce do druhého, což umožňuje detekovat i drobné překlepy. Kromě těchto metod se uplatňují techniky normalizace textu (\textbf{Simple Name Matching}), kdy dochází k~odstranění diakritiky a sjednocení velikosti písmen. Doplňkovým přístupem jsou fonetické algoritmy, jako je \textbf{Metaphone} nebo \textbf{Match Rating Approach}, které převádějí slova do fonetických kódů, čímž umožňují identifikovat shodné výslovnosti i při odlišné grafické podobě.
 
 \podsekce {Probabilistické přístupy}
-Probabilistické metody se zaměřují na výpočet pravděpodobnosti, že dva záznamy odpovídají téže entitě, a to na základě analýzy jednotlivých atributů. Každý atribut je ohodnocen pravděpodobností shody, přičemž klíčovými pojmy jsou \textit{m-hodnota} (pravděpodobnost shody v případě, že záznamy patří ke stejné entitě) a \textit{u-hodnota} (pravděpodobnost shody v opačném případě). Pro kombinaci těchto hodnot se využívá \textbf{Bayesova věta}, která umožňuje vážit jednotlivé atributy podle jejich diskriminační síly.
+Probabilistické metody se zaměřují na výpočet pravděpodobnosti, že dva záznamy odpovídají téže entitě, a to na základě analýzy jednotlivých atributů. Každý atribut je ohodnocen pravděpodobností shody, přičemž klíčovými pojmy jsou \textit{m-hodnota} (pravděpodobnost shody v~případě, že záznamy patří ke stejné entitě) a \textit{u-hodnota} (pravděpodobnost shody v~opačném případě). Pro kombinaci těchto hodnot se využívá \textbf{Bayesova věta}, která umožňuje vážit jednotlivé atributy podle jejich diskriminační síly.
 
-V praxi se často aplikuje \textbf{Fellegi-Sunterův model}, který na základě váženého součtu srovnávacích skóre a stanovené prahové hodnoty usnadňuje rozhodování o shodě záznamů. Pro optimalizaci parametrů modelu se dále využívá algoritmus
+V~praxi se často aplikuje \textbf{Fellegi-Sunterův model}, který na základě váženého součtu srovnávacích skóre a stanovené prahové hodnoty usnadňuje rozhodování o~shodě záznamů. Pro optimalizaci parametrů modelu se dále využívá algoritmus
 \textbf{Expectation-Maximization}, jenž iterativně upravuje odhady a tím zvyšuje celkovou přesnost systému.
 
 \podsekce{Techniky optimalizace porovnání}
 Při zpracování rozsáhlých datových sad je počet možných kombinací záznamů vysoký, což výrazně zvyšuje výpočetní náročnost. Aby bylo možné efektivně porovnávat pouze relevantní záznamy, využívá se metoda \textbf{record blocking}. Tato technika seskupuje záznamy do bloků na základě klíčových atributů (například počáteční písmeno jména nebo region), čímž se výrazně redukuje počet nutných porovnání.
 
 \podsekce{Metody založené na strojovém učení}
-S rozvojem datové analytiky se čím dál více prosazují metody založené na strojovém učení, které jsou schopny se adaptivně učit z tréninkových dat. V rámci supervizovaného učení se modely trénují na označených datech, což umožňuje detekovat složité vzory a kombinovat informace z více atributů současně.
+S~rozvojem datové analytiky se čím dál více prosazují metody založené na strojovém učení, které jsou schopny se adaptivně učit z~tréninkových dat. V~rámci supervizovaného učení se modely trénují na označených datech, což umožňuje detekovat složité vzory a kombinovat informace z~více atributů současně.
 
-Dalším krokem ve vývoji jsou hluboké neuronové sítě, které převádějí textová data do vektorových reprezentací neboli embeddingů. Tyto reprezentace zachycují sémantické vztahy mezi slovy, což umožňuje identifikovat malé rozdíly a podobnosti, jež tradiční metody často přehlédnou. Hybridní modely, kombinující principy strojového učení s pravděpodobnostními přístupy, a tím pak poskytují nejen klasifikaci shod, ale také odhadují míru důvěryhodnosti výsledků pomocí vážených skóre.
+Dalším krokem ve vývoji jsou hluboké neuronové sítě, které převádějí textová data do vektorových reprezentací neboli embeddingů. Tyto reprezentace zachycují sémantické vztahy mezi slovy, což umožňuje identifikovat malé rozdíly a podobnosti, jež tradiční metody často přehlédnou. Hybridní modely, kombinující principy strojového učení s~pravděpodobnostními přístupy, a tím pak poskytují nejen klasifikaci shod, ale také odhadují míru důvěryhodnosti výsledků pomocí vážených skóre.
 
-Systém rozpoznávání duplicitních záznamů se skládá z několika vrstev, počínaje důkladnou standardizací a čištěním dat, pokračuje aplikací heuristických metod a probabilistických modelů, dále optimalizací porovnávání pomocí record blockingu a clusteringu a končí využitím adaptivních metod strojového učení a hlubokých neuronových sítí. Tato strategie umožňuje efektivní identifikaci a sjednocení duplicitních záznamů v rozsáhlých a heterogenních datových souborech a tím výrazně zvyšuje kvalitu dat pro následné analytické a rozhodovací procesy.
+Systém rozpoznávání duplicitních záznamů se skládá z~několika vrstev, počínaje důkladnou standardizací a čištěním dat, pokračuje aplikací heuristických metod a probabilistických modelů, dále optimalizací porovnávání pomocí record blockingu a clusteringu a končí využitím adaptivních metod strojového učení a hlubokých neuronových sítí. Tato strategie umožňuje efektivní identifikaci a sjednocení duplicitních záznamů v~rozsáhlých a heterogenních datových souborech a tím výrazně zvyšuje kvalitu dat pro následné analytické a rozhodovací procesy.
 
 % Detekce duplicit bez využití strojového učení zahrnuje například algoritmus pro výběr párů Sorted-Neighborhood-Method (SNM). Je možné provést porovnání všech možných kombinací záznamů, ale SNM efektivně snižuje počet nutných porovnání tím, že seřadí data a porovnává pouze sousední záznamy. Pro následné měření podobnosti mezi záznamy se často používají metody jako Jaro-Winkler a Levenshtein, které posuzují, do jaké míry se záznamy podobají. Na základě takové podobnosti lze určit, zda jsou porovnané záznamy duplicity. Tyto metody jsou obzvláště užitečné pro identifikaci menších rozdílů a překlepů ve zpracovávaných datech. \cite{draisbach_choosing_2013}
 
@@ -87,4 +87,4 @@ Systém rozpoznávání duplicitních záznamů se skládá z několika vrstev, 
 
 % \sekce {Existující nástroje}
 % \todo{Popište dostupné software, jejich výhody a nevýhody}
-Možná z toho něco použiju
+Možná z~toho něco použiju

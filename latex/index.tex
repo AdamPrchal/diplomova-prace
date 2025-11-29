@@ -9,22 +9,6 @@
 \definecolor{frost}{rgb}{0.17,0.31,0.48}
 \definecolor{gray}{rgb}{0.5, 0.54, 0.62}
 \definecolor{greenFrost}{rgb}{0.44,0.55,0.35}
-\lstset{
-  basicstyle=\ttfamily,
-  breaklines=true,
-  captionpos=b,
-  numbers=left,
-  numberstyle={\tiny\color{gray}\ttfamily},
-  commentstyle=\color{gray},
-  keywordstyle=\color{frost},
-  stringstyle=\color{greenFrost},
-}
-
-\usepackage[style=authoryear, backend=biber, citestyle=authoryear, natbib=true]{biblatex}
-
-\renewcommand{\cite}{\parencite}
-
-\addbibresource{literatura.bib}
 
 
 \cislovat{2}
@@ -45,7 +29,8 @@
 \listoffigures
 \input{kapitoly/uvod_a_cil.tex}
 \input{kapitoly/literarni-reserse.tex}
-%\input{literatura}
-\printbibliography[title={Literatura}]
+\begin{literatura}
+	\input{literatura}
+\end{literatura}
 
 \end{document}

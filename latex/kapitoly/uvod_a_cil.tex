@@ -1,8 +1,8 @@
 \kapitola{Úvod a cíl}
 \sekce{Úvod}
-Společnosti poskytující služby v~oblasti Location Intelligence využívají své platformy pro komplexní geoprostorové analýzy, což je zásadní pro efektivní rozhodování v~různých typech podnikání. Jako součást těchto platforem, některé společnosti, včetně CleverMaps, nabízí služby zvané jako Data Marketplace, které umožňují uživatelům získávat a integrovat různorodé datové sady. Tyto sady zahrnují např. demografické informace, obchodní statistiky a infrastrukturu měst, což pomáhá klientům lépe cílit své služby a strategická rozhodnutí. \cite{clevermaps_location_2024}
+Společnosti poskytující služby v~oblasti Location Intelligence využívají své platformy pro komplexní geoprostorové analýzy, což je zásadní pro efektivní rozhodování v~různých typech podnikání. Jako součást těchto platforem, některé společnosti, včetně CleverMaps, nabízí služby zvané jako Data Marketplace, které umožňují uživatelům získávat a integrovat různorodé datové sady. Tyto sady zahrnují např. demografické informace, obchodní statistiky a infrastrukturu měst, což pomáhá klientům lépe cílit své služby a strategická rozhodnutí. \cite{clevermapsLocationInsightsBusiness2024}
 
-Vzhledem k~tomu, že při sběru dat a následnou manipulací s~geoprostorovými daty dochází často ke kombinování dat z~různých zdrojů (pro co největší úplnost konečných datových sad), vzniká problém s výskytem duplicitních záznamů. Duplicity v~datech mohou mít různé podoby a vznikají z~několika důvodů, některé z nich jsou:
+Vzhledem k~tomu, že při sběru dat a následnou manipulací s~geoprostorovými daty dochází často ke kombinování dat z~různých zdrojů (pro co největší úplnost konečných datových sad), vzniká problém s~výskytem duplicitních záznamů. Duplicity v~datech mohou mít různé podoby a vznikají z~několika důvodů, některé z~nich jsou:
 
 \begin{itemize}
 	\item \textbf{Rozdílné názvy stejných míst} – např. \textit{"Velký městský park"} vs. \textit{"Park v~centru města"}.
@@ -10,9 +10,9 @@ Vzhledem k~tomu, že při sběru dat a následnou manipulací s~geoprostorovými
 	\item \textbf{Rozdílné souřadnicové systémy} – jeden data set může používat \textit{WGS84}, zatímco jiný \textit{S-JTSK}.
 \end{itemize}
 
-Tyto duplicity snižují kvalitu dat a mohou způsobit chyby v~rozhodovacích procesech, např. při plánování dopravy, marketingových analýzách nebo při geokódování obchodních poboček. Proto je detekce a eliminace duplicit v~geoprostorových datech klíčová. K~identifikaci duplicit mohou být využity různé metody, od jednoduchých textových porovnání až po složitější techniky strojového učení, které analyzují podobnost dat v~širším kontextu. \cite{nauman_introduction_2022, christen_data_2012}
+Tyto duplicity snižují kvalitu dat a mohou způsobit chyby v~rozhodovacích procesech, např. při plánování dopravy, marketingových analýzách nebo při geokódování obchodních poboček. Proto je detekce a eliminace duplicit v~geoprostorových datech klíčová. K~identifikaci duplicit mohou být využity různé metody, od jednoduchých textových porovnání až po složitější techniky strojového učení, které analyzují podobnost dat v~širším kontextu. \cite{naumanIntroductionDuplicateDetection2022, christenDataMatchingConcepts2012}
 
-Existují komerční i open-source nástroje pro detekci duplicit, které často využívají cloudové technologie a pokročilé algoritmy. Mezi ně patří např. Data Ladder, Tilores nebo Melissa. Ačkoliv tyto nástroje zlepšují kvalitu dat, často představují vysoké náklady nebo nejsou dostatečně přizpůsobitelné konkrétním datovým sadám. To motivuje společnosti k~hledání vlastních řešení. \cite{christen_data_2012}
+Existují komerční i open-source nástroje pro detekci duplicit, které často využívají cloudové technologie a pokročilé algoritmy. Mezi ně patří např. Data Ladder, Tilores nebo Melissa. Ačkoliv tyto nástroje zlepšují kvalitu dat, často představují vysoké náklady nebo nejsou dostatečně přizpůsobitelné konkrétním datovým sadám. To motivuje společnosti k~hledání vlastních řešení. \cite{christenDataMatchingConcepts2012}
 
 \sekce{Cíl}
 Cílem této práce je prozkoumat a otestovat různé metody detekce duplicit na geoprostorových datech, včetně metod založených na strojovém učení. Na základě analýzy výsledků testů doporučit nejvhodnější metody pro konkrétní typy sad geoprostorových dat, přičemž ověření těchto metod proběhne na datových sadách poskytnutých společností CleverMaps.
